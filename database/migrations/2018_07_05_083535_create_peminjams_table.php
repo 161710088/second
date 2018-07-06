@@ -16,7 +16,9 @@ class CreatePeminjamsTable extends Migration
         Schema::create('peminjams', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('user_id')->unsigned()->index();
-            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreign('user_id')->references('id')->on('users')
+            ->onDelete('cascade')
+            ->onUpdate('cascade');
             $table->integer('barang_id')->unsigned()->index();
             $table->foreign('barang_id')->references('id')->on('barangs')->onDelete('cascade')->onUpdate('cascade');
             $table->integer('dipinjam');

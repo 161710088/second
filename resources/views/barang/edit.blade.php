@@ -9,12 +9,21 @@
 			  	</div>
 			  </div>
 			  <div class="panel-body">
-			  	<form action="{{ route('barang.update',$barang->id) }}" method="post" >
+			  	<form action="{{ route('barang.update',$barang->id) }}" method="post" enctype="multipart/form-data">
 			  		<input name="_method" type="hidden" value="PATCH">
         			{{ csrf_field() }}
 			  		<div class="form-group {{ $errors->has('barang') ? ' has-error' : '' }}">
 			  			<label class="control-label">Barang</label>	
 			  			<input type="text" name="nama" class="form-control" value="{{ $barang->nama_barang }}"  required>
+			  			<label class="cc-payment" class="control-label mb-1">Gambar</label>
+			  			@if (isset($barang) && $barang->gambar)
+			  			<p>
+			  				<br>
+			  				<img src="{{ asset('assets/img/gambar/'.$barang->gambar )}}" style="max-height:125px;max-width:125px;margin-top:7px;" alt="">
+			  			</p>
+
+			  			@endif
+			  			<input type="file" name="gambar" value="{{ $barang->gambar }}">
 			  			<label class="control-label">Jumlah</label>
 			  			<input type="text" name="jumlah" class="form-control" value="{{ $barang->jumlah }}"  required>
 			  			@if ($errors->has('barang'))

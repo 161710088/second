@@ -6,7 +6,7 @@ use App\barang;
 use App\stok;
 use Session;
 use Illuminate\Http\Request;
-
+use File;
 class BarangController extends Controller
 {
     /**
@@ -40,11 +40,20 @@ class BarangController extends Controller
     {
         $this->validate($request,[
             'nama' => 'required|',
+            'gambar' => 'required|',
             'jumlah' => 'required|'
         ]);
         $barang = new barang;
         $barang->nama_barang = $request->nama;
         $barang->jumlah= $request->jumlah;
+        // upload gambar
+        if ($request->hasFile('gambar')) {
+            $file = $request->file('gambar');
+            $destinationPath = public_path().'/assets/img/gambar/';
+            $filename = str_random(6).'_'.$file->getClientOriginalName();
+            $uploadSuccess = $file->move($destinationPath, $filename);
+            $barang->gambar = $filename;
+            }
         $barang->save();
         return redirect()->route('barang.index');
     }
@@ -83,11 +92,31 @@ class BarangController extends Controller
     {
         $this->validate($request,[
             'nama' => 'required|',
+            'gambar' => 'required|',
             'jumlah' => 'required|'
         ]);
         $barang = barang::findOrFail($id);
         $barang->nama_barang = $request->nama;
         $barang->jumlah = $request->jumlah;
+        if ($request->hasFile('gambar')) {
+            $file = $request->file('gambar');
+            $destinationPath = public_path().'/assets/img/gambar/';
+            $filename = str_random(6).'_'.$file->getClientOriginalName();
+            $uploadSuccess = $file->move($destinationPath, $filename);
+    
+        // hapus gambar lama, jika ada
+        if ($barang->gambar) {
+        $old_gambar = $barang->gambar;
+        $filepath = public_path() . DIRECTORY_SEPARATOR . '/assets/img/gambar'
+        . DIRECTORY_SEPARATOR . $barang->gambar;
+            try {
+            File::delete($filepath);
+            } catch (FileNotFoundException $e) {
+        // File sudah dihapus/tidak ada
+            }
+        }
+        $barang->gambar = $filename;
+}
         $barang->save();
         return redirect()->route('barang.index');
     }
@@ -101,11 +130,17 @@ class BarangController extends Controller
     public function destroy($id)
     {
         $a = barang::findOrFail($id);
+         if ($a->gambar) {
+            $old_foto = $a->gambar;
+            $filepath = public_path() . DIRECTORY_SEPARATOR . 'assets/img/gambar/'
+            . DIRECTORY_SEPARATOR . $a->gambar;
+            try {
+            File::delete($filepath);
+            } catch (FileNotFoundException $e) {
+            // File sudah dihapus/tidak ada
+            }
+            }
         $a->delete();
-        Session::flash("flash_notification", [
-        "level"=>"success",
-        "message"=>"Data Berhasil dihapus"
-        ]);
         return redirect()->route('barang.index');
     }
 }

@@ -42,6 +42,12 @@
             <span>Barang</span>
           </a>
         </li>
+        <li>
+          <a href="/peminjam">
+            <i class="fa fa-pie-chart"></i>
+            <span>Peminjaman</span>
+          </a>
+        </li>
       </ul>
     </section>
     <!-- /.sidebar -->

@@ -4,8 +4,8 @@
 	<div class="container">
 		<div class="col-md-10">
 			<div class="panel panel-primary">
-			  <div class="panel-heading">Data barang
-			  	<div class="panel-title pull-right"><a href="{{ route('barang.create') }}">Tambah</a>
+			  <div class="panel-heading">Data Peminjaman
+			  	<div class="panel-title pull-right"><a href="{{ route('peminjam.create') }}">Tambah</a>
 			  	</div>
 			  </div>
 			  <div class="panel-body">
@@ -14,26 +14,26 @@
 				  	<thead>
 			  		<tr>
 			  		  <th>No</th>
-					  <th>Nama barang</th>
-					  <th>Gambar barang</th>
-					  <th>Jumlah</th>
+			  		  <th>Nama Peminjam</th>
+					  <th>Nama Barang</th>
+					  <th>Jumlah Yang dipinjam</th>
 					  <th colspan="1"><center>Action</center></th>
 			  		</tr>
 				  	</thead>
 				  	<tbody>
 				  		<?php $nomor = 1; ?>
 				  		@php $no = 1; @endphp
-				  		@foreach($barang as $data)
+				  		@foreach($peminjam as $data)
 				  	  <tr>
 				    	<td>{{ $no++ }}</td>
-				    	<td>{{ $data->nama_barang }}</td>
-				    	<td><img src="{{ asset('assets/img/gambar/'.$data->gambar)  }}" style="max-height:125px;max-width:125px;margin-top:7px;"></td>
-				    	<td>{{ $data->jumlah }}</td>
+				    	<td><p>{{$data->user->name}}</p></td>
+				    	<td><p>{{$data->barang->nama_barang}}</p></li></td>
+				    	<td>{{ $data->dipinjam }}</td>
 						<td>
-							<a class="btn btn-warning" href="{{ route('barang.edit',$data->id) }}">Edit</a>
+							<a class="btn btn-warning" href="{{ route('peminjam.edit',$data->id) }}">Edit</a>
 						</td>
 						<td>
-							<form method="post" action="{{ route('barang.destroy',$data->id) }}">
+							<form method="post" action="{{ route('peminjam.destroy',$data->id) }}">
 								<input name="_token" type="hidden" value="{{ csrf_token() }}">
 								<input type="hidden" name="_method" value="DELETE">
 
