@@ -19,7 +19,7 @@
 
                 <p>
                   {{ Auth::user()->name }}<br>
-                  <i class="fa fa-circle text-success">Online</i>
+                  <i class="fa fa-circle text-success"><font color="black">Online</font></i>
                 </p>
               </li>
               <!-- Menu Footer-->

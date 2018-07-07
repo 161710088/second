@@ -1,9 +1,13 @@
 @extends('layouts.admin')
 @section('content')
+<ol class="breadcrumb">
+        <li><a href="/peminjam"><i class="fa fa-pie-chart"></i> Peminjam</a></li>
+        
+      </ol>
 <div class="row">
 	<div class="container">
 		<div class="col-md-10">
-			<div class="panel panel-primary">
+			<div class="panel panel-default">
 			  <div class="panel-heading">Edit Data peminjam 
 			  	<div class="panel-title pull-right"><a href="{{ url()->previous() }}">Kembali</a>
 			  	</div>

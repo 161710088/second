@@ -39,13 +39,15 @@ class BarangController extends Controller
     public function store(Request $request)
     {
         $this->validate($request,[
-            'nama' => 'required|',
+            'nama_barang' => 'required|',
             'gambar' => 'required|',
-            'jumlah' => 'required|'
+            'jumlah' => 'required|',
+            'kondisi' => 'required|'
         ]);
         $barang = new barang;
-        $barang->nama_barang = $request->nama;
-        $barang->jumlah= $request->jumlah;
+        $barang->nama_barang = $request->nama_barang;
+        $barang->kondisi = $request->kondisi;
+        $barang->jumlah = $request->jumlah;
         // upload gambar
         if ($request->hasFile('gambar')) {
             $file = $request->file('gambar');
@@ -91,13 +93,15 @@ class BarangController extends Controller
     public function update(Request $request,$id)
     {
         $this->validate($request,[
-            'nama' => 'required|',
-            'gambar' => 'required|',
-            'jumlah' => 'required|'
+            'nama_barang' => 'required|',
+            'gambar' => '',
+            'jumlah' => 'required|',
+            'kondisi' => 'required|'
         ]);
         $barang = barang::findOrFail($id);
-        $barang->nama_barang = $request->nama;
+        $barang->nama_barang = $request->nama_barang;
         $barang->jumlah = $request->jumlah;
+        $barang->kondisi = $request->kondisi;
         if ($request->hasFile('gambar')) {
             $file = $request->file('gambar');
             $destinationPath = public_path().'/assets/img/gambar/';

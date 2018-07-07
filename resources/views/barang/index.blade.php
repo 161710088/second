@@ -1,9 +1,12 @@
 @extends('layouts.admin')
 @section('content')
+<ol class="breadcrumb">
+        <li><a href="/barang"><i class="fa fa-pie-chart"></i> Barang</a></li>
+      </ol>
 <div class="row">
 	<div class="container">
-		<div class="col-md-10">
-			<div class="panel panel-primary">
+		<div class="col-md-11">
+			<div class="panel panel-default">
 			  <div class="panel-heading">Data barang
 			  	<div class="panel-title pull-right"><a href="{{ route('barang.create') }}">Tambah</a>
 			  	</div>
@@ -14,9 +17,10 @@
 				  	<thead>
 			  		<tr>
 			  		  <th>No</th>
-					  <th>Nama barang</th>
-					  <th>Gambar barang</th>
-					  <th>Jumlah</th>
+			  		  <th>Gambar Barang</th>
+					  <th>Nama Barang</th>
+					  <th>Kondisi Barang</th>
+					  <th>Jumlah Barang</th>
 					  <th colspan="1"><center>Action</center></th>
 			  		</tr>
 				  	</thead>
@@ -26,8 +30,9 @@
 				  		@foreach($barang as $data)
 				  	  <tr>
 				    	<td>{{ $no++ }}</td>
-				    	<td>{{ $data->nama_barang }}</td>
 				    	<td><img src="{{ asset('assets/img/gambar/'.$data->gambar)  }}" style="max-height:125px;max-width:125px;margin-top:7px;"></td>
+				    	<td>{{ $data->nama_barang }}</td>
+				    	<td>{{ $data->kondisi }}</td>
 				    	<td>{{ $data->jumlah }}</td>
 						<td>
 							<a class="btn btn-warning" href="{{ route('barang.edit',$data->id) }}">Edit</a>

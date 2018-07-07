@@ -7,7 +7,7 @@ use Session;
 class barang extends Model
 {
     protected $table = 'barangs';
-    protected $fillable = ['nama_barang','gambar','jumlah'];
+    protected $fillable = ['nama_barang','gambar','jumlah','kondisi'];
     public $timestamps = true;
 
  public function peminjam() 
